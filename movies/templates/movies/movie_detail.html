@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<h4>Movie Detail</h4>
+<hr>
+<div class="row">
+    <div class="col-3" style="height: 400px">
+        <img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="card-img-top" alt="movie image" width="70%" height="100%">
+    </div>
+    <div class="col-9">
+        <div class="d-flex justify-content-between">
+            <h5 class="mt-2">{{movie.title}}</h5>
+        </div>
+        <hr>
+        <p>Release Date: {{movie.release_date}}</p>
+        <p>Rating: {{movie.vote_average}}</p>
+        <p>Genre: {% for genre in movie.movie_genre %} <span class="ml-2 text-secondary"><strong>{{genre.name}}</strong></span>{% endfor %}</p>
+        <p>Country: {{country}}</p>
+    </div>
+</div>
+
+{% endblock %}
+
+
+

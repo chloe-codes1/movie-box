@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+    <title>All About Movie - {% block title %} {%endblock%}</title>
+</head>
+<body>
+    {% include '_nav.html' %}
+
+    {% if messages %}
+    <div style="height: 10px;"></div>
+    <ul class="messages p-0">
+        {% for message in messages %}
+            {% if message.tags %}
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                <div class="alert alert-info ">
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success ">
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.PRIMARY %}
+                <div class="alert alert-primary ">
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                <div class="alert alert-warning ">
+
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.DANGER %}
+                <div class="alert alert-danger ">
+              {% endif %}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{ message }}</strong>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+    <div class="m-3">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+
+
+    <div style="height:100px;"></div>
+    <!--footer-->
+    <footer class="footer fixed-bottom bg-dark p-0 border border-secondary border-left-0 border-right-0 border-bottom-0" style="">
+      <div class="footer-copylight text-light align-middle text-center my-3 col-12">© 2020 Copyright:
+        <a href="https://github.com/jisu5" class="text-decoration-none"> <i class="fab fa-github ml-1"></i> Jisu5</a> |
+        <a href="https://github.com/chloe-codes1" class="text-decoration-none">chloe-codes1</a>
+      </div>
+    </footer>
+
+    {% bootstrap_javascript jquery='full' %}
+</body>
+</html>

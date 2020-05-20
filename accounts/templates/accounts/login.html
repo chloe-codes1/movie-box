@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load socialaccount %}
+
+{% block content %}
+  <div class="mx-auto" style="width:500px;">
+    <h4>LOGIN</h4>
+    <form action="" method="POST" class="d-inline">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button class="btn btn-warning text-white mr-2"><strong>Login</strong></button>
+    </form>
+    <a href="{% url 'accounts:signup' %}" class="text-success"><strong>Join us</strong></a>
+    <p><a href="{% provider_login_url 'google' %}" class="btn btn-primary">Google Login</a></p>
+  </div>
+{% endblock %}

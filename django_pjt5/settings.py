@@ -138,8 +138,8 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL ='accounts.User'
 
-# allauth setting
 
+# allauth setting
 AUTHENTICATOIN_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',

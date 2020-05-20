@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+<h4>HOME</h4>
+    <h5>Recently Released Movies</h5>
+    <div class="container">
+      <div class="row mx-auto">
+      {% for movie in movies %}
+        <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+          <div class="card mx-auto">
+            <a href="{% url 'movies:movie_detail' movie.pk %}"><img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="card-img-top" alt="movie image"></a>
+            <div class="card-body">
+              <h5 class="card-title">{{movie.title}}</h5>
+              <p class="card-text text-warning">★   <span class="text-dark">{{movie.vote_average}}</span></p>
+              <div>
+                <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn btn-warning">Detail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <h5>Recommandation</h5>
+    <hr>
+    <div class="container">
+        <div class="row mx-auto">
+        {% for movie in recommand_movies %}
+          <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+            <div class="card mx-auto">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="card-img-top" alt="movie image"></a>
+              <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <p class="card-text text-warning">★   <span class="text-dark">{{movie.vote_average}}</span></p>
+                <div>
+                  <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn btn-warning">Detail</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <h5>If you want to see Recommandation about Movies, Pleas Login!</h5>
+    {% endif %}
+        
+
+{% endblock %}
