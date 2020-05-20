@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'bootstrap4',
     'bootstrap_pagination',
-
+    'mathfilters',
     # django original
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+
 AUTH_USER_MODEL ='accounts.User'
 
 
@@ -156,6 +162,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
+    },
+        'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
     }
 }
 

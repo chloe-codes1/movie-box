@@ -1,44 +1,46 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-warning sticky-top">
-    <a class="navbar-brand " href="{% url 'home' %}"><strong>All About Movies</strong></a>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top row" style="background-color: rgb(14, 39, 78); height: 70px;">
     <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <div class="mr-auto collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    <div class="col-4 collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'home' %}"><img src="/static/images/home.png" height='40'><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'movies:movie_list' %}">Movies</a>
+            <a class="nav-link" href="{% url 'movies:movie_list' %}" ><img src="/static/images/movies.png" height='40'></a>
             </li>
         </ul>
     </div>
-  
-    <div class="navbar">
+   <div class="navbar col-4">
+      <a class="mx-auto navbar-brand " href="{% url 'home' %}"><img src="/static/images/brand_logo2.png" height='70'></a>
+    </div>
+    <div class="navbar col-4 ">
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
-        <div class="d-flex">
-        <li class="nav-item mt-1 mx-2"><img src="{{request.user.gravatar_url}}" class="rounded-circle" height="30" width="30"/></li>
+        <div class="d-flex align-items-center">
+        <li class="nav-item mx-2"><img src="{{request.user.gravatar_url}}" class="rounded-circle" height="30" width="30"/></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:rgb(229, 208, 116); font-family:'FV Almelo', Arial, sans-serif; font-size: large;">
             Hello, {{user.username}}!
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <button class="dropdown-item"><a href="{% url 'profile' user.username %}" >Profile</a></button>
-            <button class="dropdown-item"><a href="{% url 'accounts:logout' %}" class="text-decoration-none text-danger">Log-out</a></button>
+            <button class="dropdown-item"><a href="{% url 'profile' user.username %}" style="font-family:FV Almela, Verdana, Geneva, Tahoma, sans-serif">Profile</a></button>
+            <button class="dropdown-item"><a href="{% url 'accounts:logout' %}" class="text-decoration-none text-danger" style="font-family:FV Almela, Verdana, Geneva, Tahoma, sans-serif">Log-out</a></button>
           </div>
         </li>
         </div>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+          <a class="nav-link" href="{% url 'accounts:login' %}"><img src="/static/images/login.png" height='40'></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:signup' %}">Sign up</a>
+          <a class="nav-link" href="{% url 'accounts:signup' %}"><img src="/static/images/sign_up.png" height='40'></a>
         </li>
         {% endif %}
       </ul>
     </div>
+   
   </nav>

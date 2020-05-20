@@ -1,23 +1,71 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
-<h4>Movie Detail</h4>
+
+<div>
+    <h4>Movie Detail</h4>
+    <p>
+    {% if user in movie.liked_users.all %}
+    <i class="fas fa-heart fa-lg text-danger mr-2" id="likeButton"  data-id="{{movie.pk}}"></i>
+     {% else %}
+    <i class="far fa-heart fa-lg text-danger mr-2" id="likeButton"  data-id="{{movie.pk}}"></i>
+    {% endif %}
+    
+    <span>
+         Liked by <span id="likeCount">{{movie.liked_users.count}} </span>
+    </span>
+
+    </p>
+</div>
 <hr>
-<div class="row">
-    <div class="col-3" style="height: 400px">
+<!-- background image -->
+<div><div style="background-color:black; position:relative; height: 400px; opacity:0.7;"></div><div class="w-50 mx-auto" style="height:400px; position:absolute; top:180px; left: 25%; background-image: url('https://image.tmdb.org/t/p/w342//{{movie.backdrop_path}}'); background-size: 100% 100%; opacity:0.5; box-shadow: inset 0px 0px 20px 20px;"></div></div>
+
+
+<div class="row" style="height:400px">
+    <div class="col-3" style="height: 400px;">
         <img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="card-img-top" alt="movie image" width="70%" height="100%">
     </div>
     <div class="col-9">
         <div class="d-flex justify-content-between">
-            <h5 class="mt-2">{{movie.title}}</h5>
+            <h5 class="mt-2">{{movie.title}} <span style="font-size: small;">{{movie.original_title}}</span></h5>
+            <p>★ {{movie.vote_average}}</p>
         </div>
         <hr>
         <p>Release Date: {{movie.release_date}}</p>
-        <p>Rating: {{movie.vote_average}}</p>
-        <p>Genre: {% for genre in movie.movie_genre %} <span class="ml-2 text-secondary"><strong>{{genre.name}}</strong></span>{% endfor %}</p>
-        <p>Country: {{country}}</p>
+        <p>Rating: ★ {{movie.vote_average}}</p>
+        <p>Genre: {% for genre in movie.genres.all %} <span class="ml-2 text-secondary"><strong>{{genre.name}}</strong></span>{% endfor %}</p>
+        <hr>
+        <h5>Overview</h5>
+        <hr>
+        <p>{{movie.overview}}</p>
     </div>
 </div>
+
+
+<script>
+    const likeButton = document.querySelector('#likeButton')
+        likeButton.addEventListener('click', event => {
+            const movieID =event.target.dataset.id
+            {% if user.is_authenticated %}
+                axios.get(`/movies/${movieID}/like/`)
+                .then( response => {
+                    likeCount = document.querySelector('#likeCount').innerText = response.data.count
+                    if (response.data.liked){
+                        event.target.classList.remove('far')
+                        event.target.classList.add('fas')
+                    }
+                    else {
+                        event.target.classList.remove('fas')
+                        event.target.classList.add('far')
+                    }
+                })
+            {% else %}
+                alert('Please login!')
+            {% endif %}
+        })
+
+</script>
 
 {% endblock %}
 

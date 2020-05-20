@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
+{% load bootstrap_pagination %}
 {% block title %}Movie List{% endblock %}
 {% block content %}
 <h4>Movie List</h4>
 <hr>
+
+<div class="container">
+    <div class="row mx-auto">
+    {% for movie in page_obj %}
+      <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+        <div class="card mx-auto">
+          <a href="{% url 'movies:movie_detail' movie.pk %}"><img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="card-img-top" alt="movie image"></a>
+          <div class="card-body">
+            <h5 class="card-title">{{movie.title}}</h5>
+            <p class="card-text text-warning">★   <span class="text-dark">{{movie.vote_average}}</span></p>
+            <div>
+              <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn btn-warning">Detail</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+{% bootstrap_paginate page_obj range=5 show_prev_next="false" show_first_last="true" extra_pagination_classes="justify-content-center"%}
+</div>
 {% endblock %}

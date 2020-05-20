@@ -5,13 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% bootstrap_css %}
-    <title>All About Movie - {% block title %} {%endblock%}</title>
+    <!-- fontawesome-->
+    <script src="https://kit.fontawesome.com/f9f05d10ba.js" crossorigin="anonymous"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="shortcut icon" href="../../static/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/x-icon" href="../../static/favicon/favicon-96x96.png" />
+    <link href="//db.onlinewebfonts.com/c/d047865e0008f13cd1aa6146e29cb6bc?family=FV+Almelo" rel="stylesheet" type="text/css"/>
+    <style>
+      @font-face {font-family: "FV Almelo"; src: url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.eot"); src: url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.woff") format("woff"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.svg#FV Almelo") format("svg"); }
+    </style>
+    <title>MOVIEBOX {% block title %} {%endblock%}</title>
 </head>
 <body>
     {% include '_nav.html' %}
 
     {% if messages %}
-    <div style="height: 10px;"></div>
     <ul class="messages p-0">
         {% for message in messages %}
             {% if message.tags %}
@@ -37,7 +46,7 @@
 
 
 
-    <div class="m-3">
+    <div class="m-3" style="font-family:FV Almela, Verdana, Geneva, Tahoma, sans-serif">
     {% block content %}
 
     {% endblock %}
@@ -46,7 +55,7 @@
 
     <div style="height:100px;"></div>
     <!--footer-->
-    <footer class="footer fixed-bottom bg-dark p-0 border border-secondary border-left-0 border-right-0 border-bottom-0" style="">
+    <footer class="footer fixed-bottom p-0 border border-secondary border-left-0 border-right-0 border-bottom-0" style="background-color: rgb(14, 39, 78);">
       <div class="footer-copylight text-light align-middle text-center my-3 col-12">© 2020 Copyright:
         <a href="https://github.com/jisu5" class="text-decoration-none"> <i class="fab fa-github ml-1"></i> Jisu5</a> |
         <a href="https://github.com/chloe-codes1" class="text-decoration-none">chloe-codes1</a>

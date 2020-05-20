@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 
 # Create your models here.
 class Genre(models.Model):
@@ -19,6 +19,7 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200)
     backdrop_path = models.CharField(max_length=200)
     genres = models.ManyToManyField(Genre, related_name="movie_genre")
+    liked_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_movies')
     
 
 

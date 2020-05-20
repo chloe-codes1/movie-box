@@ -5,8 +5,9 @@ from django.views.decorators.http import require_POST
 from django.db.models import Count, Prefetch
 from .models import Movie
 from accounts.models import UserProfile
-
+from django.core.paginator import Paginator
 from django.conf import settings
+from django.http import JsonResponse
 import requests
 import random
 
@@ -33,23 +34,41 @@ def home(request):
     return render(request, 'movies/home.html', context)
     
 
+# 전체 영화들 보기
 def movie_list(request):
-    pass
-# # 전체 영화들 보기
-# def movie_list(request):
-#     movies = Movie.objects.order_by('-vote_average')
-#     context = {
-#         'movies': movies,
+    movies = Movie.objects.order_by('-vote_average')
+    paginator = Paginator(movies, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
 
-#     }
-#     return render(request, 'movies/movie_list.html', context)
+    }
+    return render(request, 'movies/movie_list.html', context)
 
-def like(request):
-    pass
+@login_required
+def like(request, movie_pk):
+    user = request.user 
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    
+    if movie.liked_users.filter(pk=user.pk).exists():
+        movie.liked_users.remove(user)
+        liked = False
+    else:
+        movie.liked_users.add(user)
+        liked = True
+
+    context = {
+        'liked': liked,
+        'count': movie.liked_users.count(),
+    }
+
+    return JsonResponse(context)  
 
 # 영화별 상세보기 - 해당 영화 리뷰출력
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, id=movie_pk)
+    
     context = {
         'movie': movie,
     }

@@ -4,6 +4,7 @@
 
 {% block content %}
 <h4>HOME</h4>
+<hr>
     <h5>Recently Released Movies</h5>
     <div class="container">
       <div class="row mx-auto">
@@ -23,6 +24,7 @@
       {% endfor %}
       </div>
     </div>
+  <hr>
     {% if user.is_authenticated %}
     <h5>Recommandation</h5>
     <hr>
@@ -36,7 +38,7 @@
                 <h5 class="card-title">{{movie.title}}</h5>
                 <p class="card-text text-warning">★   <span class="text-dark">{{movie.vote_average}}</span></p>
                 <div>
-                  <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn btn-warning">Detail</a>
+                  <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn" style="background-color: rgb(14, 39, 78); color:rgb(229, 208, 116);"><strong>Detail</strong></a>
                 </div>
               </div>
             </div>
