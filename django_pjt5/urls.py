@@ -22,6 +22,7 @@ from accounts import views as account_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', movie_views.home, name='home'),
+    path('search/', movie_views.search, name='search'),
     path('movies/', include('movies.urls')),
     path('accounts/', include('accounts.urls')),
     # 우리가 정의한 accounts.url 아래에

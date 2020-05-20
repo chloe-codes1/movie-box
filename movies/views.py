@@ -3,17 +3,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.db.models import Count, Prefetch
-from .models import Movie
+from .models import Movie, Genre
 from accounts.models import UserProfile
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import JsonResponse
+from django.db.models import FilteredRelation, Q
 import requests
 import random
 
 # main page - 영화 전체 목록
 def home(request):
-    movies = Movie.objects.order_by('-release_date')[:10]
+    movies = Movie.objects.order_by('-release_date')[:8]
+    movies1 = movies[:4]
+    movies2 = movies[4:]
     if request.user.is_authenticated:
         try:
             profile = UserProfile.objects.get(user=request.user)
@@ -25,11 +28,13 @@ def home(request):
         recommand_movies = random.sample(recommand_movies, 10)
         context = {
                 'recommand_movies': recommand_movies,
-                'movies': movies,
+                'movies1': movies1,
+                'movies2': movies2,
             }
         return render(request, 'movies/home.html', context)
     context = {
-            'movies': movies,
+            'movies1': movies1,
+            'movies2': movies2,
         }
     return render(request, 'movies/home.html', context)
     
@@ -45,6 +50,39 @@ def movie_list(request):
 
     }
     return render(request, 'movies/movie_list.html', context)
+
+def sort(request):
+    option = request.POST.get('option')
+    if option == 'Top rating':
+        movies = Movie.objects.order_by('-vote_average')
+    elif option == 'Latest':
+        movies = Movie.objects.order_by('-release_date')
+    elif option == 'Oldest':
+        movies = Movie.objects.order_by('release_date')
+    paginator = Paginator(movies, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+        'option': option,
+    }
+    return render(request, 'movies/movie_list.html', context)
+
+
+def genre(request):
+    option = request.POST.get('option')
+    genre_pk = Genre.objects.get(name= option).id
+    print('pk 맞니?!!?!?!', genre_pk)
+    movies = Movie.objects.filter(genres__in="genre_pk")
+    paginator = Paginator(movies, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+        'option': option,
+    }
+    return render(request, 'movies/movie_list.html', context)
+
 
 @login_required
 def like(request, movie_pk):
@@ -73,3 +111,27 @@ def movie_detail(request, movie_pk):
         'movie': movie,
     }
     return render(request, 'movies/movie_detail.html', context)
+
+def search(request):
+    option = request.POST.get('option')
+    keyword = request.POST.get('keyword')
+
+    if option == 'All':
+        movies = Movie.objects.filter(
+            Q(title__icontains=keyword) | Q(overview__icontains=keyword)
+            )
+        option = 'titles and content'
+    elif option == 'Title':
+        movies = Movie.objects.filter(title__icontains=keyword)
+    elif option == 'Content':
+        movies = Movie.objects.filter(overview__icontains=keyword)
+
+    paginator = Paginator(movies, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+        'keyword': keyword,
+        'option': option.lower(),
+    }
+    return render(request, 'movies/movie_list.html', context)

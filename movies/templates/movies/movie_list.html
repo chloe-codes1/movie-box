@@ -2,10 +2,21 @@
 {% load bootstrap_pagination %}
 {% block title %}Movie List{% endblock %}
 {% block content %}
-<h4>Movie List</h4>
-<hr>
+<div class="m-4">
+{% if request.resolver_match.url_name == 'search' %}
+  <h4>Search result for {{option}}s contains "{{keyword}}"</h4>
 
-<div class="container">
+{% elif request.resolver_match.url_name == 'sort' %}
+  <h4>{{option}} movies</h4>
+{% else %}
+<h2 style="color: rgb(14, 39, 78); font-family:'FV Almelo', Arial, sans-serif;">MOVIE LIST</h2>
+{% endif %}
+
+<hr style="background-color:rgb(14, 39, 78);">
+
+{% include '_sidebar.html' %}
+<div style="padding-left:100px">                                                                                                 
+<div class="container" >
     <div class="row mx-auto">
     {% for movie in page_obj %}
       <div class="col-12 col-sm-6 col-md-4 col-xl-3">
@@ -23,6 +34,33 @@
     {% endfor %}
     </div>
 
+<div style="height:50px;"></div>
 {% bootstrap_paginate page_obj range=5 show_prev_next="false" show_first_last="true" extra_pagination_classes="justify-content-center"%}
 </div>
+</div>
+
+
+<script>
+  const ratingSort = document.querySelector('#ratingSort')
+  ratingSort.addEventListener('click', event => {
+    const option = event.target.dataset.id
+    axios.get('/movies/sort/', {
+      params: {
+        option: option,
+      }
+    })
+  })
+
+  const dateSort = document.querySelector('#dateSort')
+  dateSort.addEventListener('click', event => {
+    const option = event.target.dataset.id
+    axios.get('/movies/sort/', {
+      params: {
+        option: option,
+      }
+    })
+  })
+
+</script>
+
 {% endblock %}
