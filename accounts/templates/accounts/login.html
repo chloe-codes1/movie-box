@@ -3,12 +3,12 @@
 {% load socialaccount %}
 
 {% block content %}
-  <div class="mx-auto col-xl-6 col-lg-9 col-md-12">
+  <div class="mt-4 mb-1 mx-auto col-lg-4 col-md-6 col-sm-12">
     <h4>LOGIN</h4>
-    <form action="" method="POST" class="mb-5">
+    <form action="" method="POST" class="mb-3">
       {% csrf_token %}
       {% bootstrap_form form %}
-      <div style="height: 30px"></div>
+      <div style="height: 10px"></div>
       <button class="btn btn-warning d-block text-white w-25 text-center"><strong>Login</strong></button>
     </form>
 

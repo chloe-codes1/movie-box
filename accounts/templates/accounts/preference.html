@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %}Preferences{% endblock %}
+{% block content %}
+
+
+<h3 class="text-center my-4">What is your favorite genre of movie?</h3>
+<div class="m-auto col-3">
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form%}
+    <button class="btn btn-warning mr-3" id="post_create_update_btn"><strong>Submit</strong></button>
+    <a href="{% url 'home' %}" class="text-decoration-none">I'll do it later</a>
+  </form>
+  
+</div>
+
+<script>
+  const limit = 3
+  const checkBoxes = document.querySelectorAll('.form-check-input')
+  console.log(checkBoxes )
+  checkBoxes.forEach(check => {
+    check.addEventListener('change', e=>{
+      if (document.querySelectorAll('.form-check-input:checked').length > limit){
+        e.target.checked = false;
+        alert('You may choose up to three favorite genres!')
+      }
+    })
+  })
+
+</script>
+
+
+{% endblock %}

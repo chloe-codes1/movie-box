@@ -14,8 +14,9 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ['username','first_name','last_name','email']
 
 class UserProfileForm(forms.ModelForm):
-    favorites = forms.ModelMultipleChoiceField(queryset=Genre.objects.all(),
-                                                widget=forms.CheckboxSelectMultiple,)
+    favorites = forms.ModelMultipleChoiceField(queryset=Genre.objects.all().values_list('name', flat=True),
+                                                widget=forms.CheckboxSelectMultiple,
+                                                label='',)
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ['favorites']

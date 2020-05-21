@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.http import require_POST
-from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from .forms import CustomUserCreationForm, CustomUserChangeForm, UserProfileForm
+from movies.models import Genre
 
 User = get_user_model()
 
@@ -26,6 +27,22 @@ def signup(request):
         'form': form,
     }
     return render(request, 'accounts/signup.html', context)
+
+def preference(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save()
+            messages.add_message(request, messages.INFO, 'Thank you for letting us know!')
+            return redirect('home')
+    else:
+        form = UserProfileForm()
+    genres = Genre.objects.all()
+    context = {
+        'form':form,
+        'genres': genres
+    }
+    return render(request, 'accounts/preference.html', context)
 
 
 def login(request):
