@@ -3,13 +3,15 @@
 {% block title %}Movie List{% endblock %}
 {% block content %}
 <div class="m-4">
-{% if request.resolver_match.url_name == 'search' %}
-  <h4>Search result for {{option}}s contains "{{keyword}}"</h4>
 
+{% if request.resolver_match.url_name == 'search' %}
+  <h3>Search result for {{option}}s contains "{{keyword}}"</h3>
 {% elif request.resolver_match.url_name == 'sort' %}
-  <h4>{{option}} movies</h4>
+  <h3> {{option}} movies</h3>
+{% elif request.resolver_match.url_name == 'genre' %}
+  <h3> {{option}} movies</h3>
 {% else %}
-<h2 style="color: rgb(14, 39, 78); font-family:'FV Almelo', Arial, sans-serif;">MOVIE LIST</h2>
+  <h2 style="color: rgb(14, 39, 78); font-family:'FV Almelo', Arial, sans-serif;">MOVIE LIST</h2>
 {% endif %}
 
 <hr style="background-color:rgb(14, 39, 78);">

@@ -52,7 +52,7 @@ def movie_list(request):
     return render(request, 'movies/movie_list.html', context)
 
 def sort(request):
-    option = request.POST.get('option')
+    option = request.GET.get('option')
     if option == 'Top rating':
         movies = Movie.objects.order_by('-vote_average')
     elif option == 'Latest':
@@ -70,10 +70,8 @@ def sort(request):
 
 
 def genre(request):
-    option = request.POST.get('option')
-    genre_pk = Genre.objects.get(name= option).id
-    print('pk 맞니?!!?!?!', genre_pk)
-    movies = Movie.objects.filter(genres__in="genre_pk")
+    option = request.GET.get('option')
+    movies = Movie.objects.filter(genres__name__icontains=option)
     paginator = Paginator(movies, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -113,8 +111,8 @@ def movie_detail(request, movie_pk):
     return render(request, 'movies/movie_detail.html', context)
 
 def search(request):
-    option = request.POST.get('option')
-    keyword = request.POST.get('keyword')
+    option = request.GET.get('option')
+    keyword = request.GET.get('keyword')
 
     if option == 'All':
         movies = Movie.objects.filter(

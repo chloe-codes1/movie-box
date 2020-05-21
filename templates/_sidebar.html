@@ -2,8 +2,7 @@
   <li class="nav-item dropright">
     <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" style="font-size:36px"></i></a>
     <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
-    <form class="form-inline px-2" action="{% url 'search' %}" method="POST">
-        {% csrf_token %}
+    <form class="form-inline px-2" action="{% url 'search' %}" >
         <div class="form-group">
         <label for="search-option">Search by</label>
         <select class="form-control ml-2 my-2" id="search-option" name="option">
@@ -16,12 +15,10 @@
     </form>
   </div>
   </li>
-  
   <li class="nav-item dropright">
     <a class="nav-link drop-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Order by</a>
      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <form action="{% url 'movies:sort'%}" method="POST">
-        {%csrf_token%}
+        <form action="{% url 'movies:sort'%}">
         <select class="form-control ml-2 my-2" id="sort-option" name="option">
           <option>Top rating</option>
           <option>Latest</option>
@@ -29,18 +26,12 @@
         </select>
         <button class="btn btn-secondary">Sort!</button>
       </form>
-
-        {% comment %}  주현 눈물 구간... 혹시 모르니 지우지 마셈
-        <input type="button" class="dropdown-item" value="Rating" id="ratingSort" data-id="vote_average"/>
-        <input type="button" class="dropdown-item" value="Released Date" id="dateSort" data-id="release_date"/> 
-        {% endcomment %}
     </div>
   </li>
   <li class="nav-item dropright">
     <a class="nav-link drop-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Genres</a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <form action="{% url 'movies:genre'%}" method="POST">
-        {%csrf_token%}
+        <form action="{% url 'movies:genre'%}" method="GET">
         <select class="form-control ml-2 my-2" id="sort-option" name="option">
           <option>Adventure</option>
           <option>Fantasy</option>
