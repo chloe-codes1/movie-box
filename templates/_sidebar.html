@@ -69,5 +69,13 @@
 </ul>
 
                         
+<script>
+  const dropdownToggles = document.querySelectorAll('.dropdown-menu')
+  dropdownToggles.forEach( dropdownToggle => {
+    dropdownToggle.addEventListener('click', e => {
+      e.stopPropagation()
+    })
+  })
 
 
+</script>
