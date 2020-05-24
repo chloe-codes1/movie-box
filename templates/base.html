@@ -15,12 +15,12 @@
     <style>
       @font-face {font-family: "FV Almelo"; src: url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.eot"); src: url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.woff") format("woff"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/d047865e0008f13cd1aa6146e29cb6bc.svg#FV Almelo") format("svg"); }
     </style>
-    <title>MOVIE BOX {% block title %} {%endblock%}</title>
+    <title>Movie Box {% block title %} {%endblock%}</title>
 </head>
 <body>
     {% include '_nav.html' %}
     {% if messages %}
-    <ul class="messages p-0">
+    <ul class="messages p-0" style="font-family:'FV Almelo', Arial, sans-serif;">
         {% for message in messages %}
             {% if message.tags %}
               {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
@@ -47,7 +47,7 @@
     </div>
     <div style="height:100px;"></div>
     <!--footer-->
-    <footer class="footer fixed-bottom p-0 border border-secondary border-left-0 border-right-0 border-bottom-0" style="background-color: rgb(14, 39, 78);">
+    <footer class="footer fixed-bottom p-0 border border-secondary border-left-0 border-right-0 border-bottom-0" style="background-color: rgb(14, 39, 78); font-family:'FV Almelo', Arial, sans-serif;">
       <div class="footer-copylight text-light align-middle text-center my-3 col-12">© 2020 Copyright:
         <a href="https://github.com/jisu5" class="text-decoration-none"> <i class="fab fa-github ml-1"></i> Jisu5</a> |
         <a href="https://github.com/chloe-codes1" class="text-decoration-none">chloe-codes1</a>
