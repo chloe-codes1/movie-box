@@ -166,7 +166,7 @@ def search(request):
     return render(request, 'movies/movie_list.html', context)
 
 
-# 댓글 작성 - 각 리뷰에 대한 댓글 입력
+# 댓글 작성 - 영화에 대한 댓글 입력
 @login_required
 @require_POST
 def comment_create(request, movie_pk):
