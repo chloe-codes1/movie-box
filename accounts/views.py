@@ -4,7 +4,6 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth import login as auth_login, logout as auth_logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
 from .forms import CustomUserCreationForm, CustomUserChangeForm, UserProfileForm
 from movies.models import Genre
 
@@ -19,7 +18,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            messages.add_message(request, messages.INFO, 'Welcome! Please login.')
+            messages.add_message(request, messages.INFO, 'Welcome '+user.username +'!')
             return redirect('home')
     else:
         form = CustomUserCreationForm()
@@ -30,11 +29,13 @@ def signup(request):
 
 def preference(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
+        form = UserProfileForm(request.POST.getlist(''))
         if form.is_valid():
             profile = form.save()
             messages.add_message(request, messages.INFO, 'Thank you for letting us know!')
             return redirect('home')
+        else:
+            print('what ..', form)
     else:
         form = UserProfileForm()
     genres = Genre.objects.all()
@@ -88,7 +89,7 @@ def update(request):
 @login_required
 def delete(request):
     request.user.delete()
-    messages.add_message(request, messages.DANGER, "Your account has been deleted.")
+    messages.add_message(request, messages.ERROR, "Your account has been deleted.")
     return redirect('home')
 
 def profile(request, username):

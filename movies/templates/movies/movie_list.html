@@ -3,45 +3,36 @@
 {% block title %}Movie List{% endblock %}
 {% block content %}
 <div class="m-4">
-
 {% if request.resolver_match.url_name == 'search' %}
-  <h3>Search result for {{option}}s contains "{{keyword}}"</h3>
+  <h4>Search result for {{option}}s contains "{{keyword}}"</h4>
 {% elif request.resolver_match.url_name == 'sort' %}
-  <h3> {{option}} movies</h3>
-{% elif request.resolver_match.url_name == 'genre' %}
-  <h3> {{option}} movies</h3>
+  <h4>{{option}} movies</h4>
 {% else %}
-  <h2 style="color: rgb(14, 39, 78); font-family:'FV Almelo', Arial, sans-serif;">MOVIE LIST</h2>
+<h2 style="color: rgb(14, 39, 78); font-family:'FV Almelo', Arial, sans-serif;">MOVIE LIST</h2>
 {% endif %}
-
 <hr style="background-color:rgb(14, 39, 78);">
-
 {% include '_sidebar.html' %}
 <div style="padding-left:100px">                                                                                                 
-<div class="container" >
+  <div class="container">
     <div class="row mx-auto">
     {% for movie in page_obj %}
       <div class="col-12 col-sm-6 col-md-4 col-xl-3">
         <div class="card mx-auto">
           <a href="{% url 'movies:movie_detail' movie.pk %}"><img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="card-img-top" alt="movie image"></a>
-          <div class="card-body">
-            <h5 class="card-title">{{movie.title}}</h5>
-            <p class="card-text text-warning">★   <span class="text-dark">{{movie.vote_average}}</span></p>
-            <div>
-              <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn btn-warning">Detail</a>
+          <a href="{% url 'movies:movie_detail' movie.pk %}" class="text-decoration-none text-reset">
+            <div class="card-body">
+              <h5 class="card-title">{{movie.title}}</h5>
+              <p class="card-text text-warning">★   <span class="text-dark">{{movie.vote_average}}</span></p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     {% endfor %}
     </div>
-
 <div style="height:50px;"></div>
 {% bootstrap_paginate page_obj range=5 show_prev_next="false" show_first_last="true" extra_pagination_classes="justify-content-center"%}
 </div>
 </div>
-
-
 <script>
   const ratingSort = document.querySelector('#ratingSort')
   ratingSort.addEventListener('click', event => {
@@ -52,7 +43,6 @@
       }
     })
   })
-
   const dateSort = document.querySelector('#dateSort')
   dateSort.addEventListener('click', event => {
     const option = event.target.dataset.id
@@ -62,7 +52,5 @@
       }
     })
   })
-
 </script>
-
 {% endblock %}

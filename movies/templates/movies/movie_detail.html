@@ -1,42 +1,34 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
-
 <!-- background image -->
 <div>
-    <div style="background-color:black; position:relative; height: 400px; opacity:0.85;"></div>
-    <div class="w-50 mx-auto" style="height:400px; position:absolute; top:70px; left: 25%; background-image: url('https://image.tmdb.org/t/p/w342//{{movie.backdrop_path}}'); background-size: 100% 100%; opacity:0.5; box-shadow: inset 0px 0px 20px 20px;"></div>
+    <div style="background-color: black; position:relative; height: 400px; opacity:0.85;"></div>
+    <div class="w-50 mx-auto" style="height:400px; position:absolute; top:56px; left: 25%; background-image: url('https://image.tmdb.org/t/p/w342//{{movie.backdrop_path}}'); background-size: 100% 100%; opacity:0.5; box-shadow: inset 0px 0px 20px 20px;"></div>
 </div>
-
-
-<div class="w-100 d-flex justify-content-between align-items-center" style="height:400px; position: absolute; top: 70px; font-family:'FV Almelo', Arial, sans-serif;">
+<div class="w-100 d-flex justify-content-between align-items-center" style="height:400px; position: absolute; top: 56px; font-family:'FV Almelo', Arial, sans-serif;">
     <div class="ml-3" style="color: white;">
         <div>
             <h3>{{movie.title}}</h3>
             <p style="font-size: small;">{{movie.original_title}}</p>
-            <p>★ {{movie.vote_average}}</p>
+            <p style="color:red;">★ <span style="color:white;">{{movie.vote_average}}</span></p>
             <p>Release Date: {{movie.release_date}}</p>
-            <p>Rating: ★ {{movie.vote_average}}</p>
-            <p>Genre: {% for genre in movie.genres.all %} <span class="ml-2 text-secondary" style="color:white!important;">{{genre.name}}</span>{% endfor %}</p>
+            <p>Genre: {% for genre in movie.genres.all %} <span class="ml-2 text-secondary" style="color:white!important;">{{genre.name}}</span>{% endfor %}</>
             <p>
-                <button type="button" class="btn btn-outline-danger">
+                <button type="button" class="btn btn-outline-danger" onmouseover="this.style.color='white'" onmouseout="this.style.color='red'">
                 {% if user in movie.liked_users.all %}
-                <i class="fas fa-heart fa-lg mx-2" id="likeButton"  data-id="{{movie.pk}}" onmouseover="this.style.color='white'" onmouseout="this.style.color='red'"></i>
+                <i class="fas fa-heart fa-lg mx-2" id="likeButton"  data-id="{{movie.pk}}" ></i>
                 {% else %}
-                <i class="far fa-heart fa-lg mx-2" id="likeButton"  data-id="{{movie.pk}}" onmouseover="this.style.color='white'" onmouseout="this.style.color='red'"></i>
+                <i class="far fa-heart fa-lg mx-2" id="likeButton"  data-id="{{movie.pk}}" ></i>
                 {% endif %}
                 </button>
-                
                 <span class="ml-2">Liked by <span id="likeCount">{{movie.liked_users.count}} </span></span>
             </p>
         </div>
     </div>
-       
-    
     <div class="mr-3" style="height: 350px;">
         <img src="https://image.tmdb.org/t/p/w342//{{movie.poster_path}}" class="rounded card-img-top" alt="movie image" width="auto" height="100%">
     </div>
-    
 </div>
 <hr>
 <div class="m-4">
@@ -45,8 +37,6 @@
     <p>{{movie.overview}}</p>
 </div>
 <hr>
-
-
 <script>
     const likeButton = document.querySelector('#likeButton')
         likeButton.addEventListener('click', event => {
@@ -68,10 +58,5 @@
                 alert('Please login!')
             {% endif %}
         })
-
 </script>
-
 {% endblock %}
-
-
-

@@ -9,7 +9,6 @@
     <script src="https://kit.fontawesome.com/f9f05d10ba.js" crossorigin="anonymous"></script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <link rel="shortcut icon" href="../../static/favicon/favicon-96x96.png">
     <link rel="icon" type="image/x-icon" href="../../static/favicon/favicon-96x96.png" />
     <link href="//db.onlinewebfonts.com/c/d047865e0008f13cd1aa6146e29cb6bc?family=FV+Almelo" rel="stylesheet" type="text/css"/>
@@ -20,7 +19,6 @@
 </head>
 <body>
     {% include '_nav.html' %}
-
     {% if messages %}
     <ul class="messages p-0">
         {% for message in messages %}
@@ -33,8 +31,7 @@
                 <div class="alert alert-primary ">
               {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
                 <div class="alert alert-warning ">
-
-              {% elif message.level == DEFAULT_MESSAGE_LEVELS.DANGER %}
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                 <div class="alert alert-danger ">
               {% endif %}
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -44,16 +41,10 @@
         {% endfor %}
     </ul>
     {% endif %}
-
-
-
-    <div>
+    <div style="font-family:'FV Almelo', Arial, sans-serif;">
     {% block content %}
-
     {% endblock %}
     </div>
-
-
     <div style="height:100px;"></div>
     <!--footer-->
     <footer class="footer fixed-bottom p-0 border border-secondary border-left-0 border-right-0 border-bottom-0" style="background-color: rgb(14, 39, 78);">
@@ -62,7 +53,6 @@
         <a href="https://github.com/chloe-codes1" class="text-decoration-none">chloe-codes1</a>
       </div>
     </footer>
-
     {% bootstrap_javascript jquery='full' %}
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
 from django.db.models import Count, Prefetch
 from .models import Movie, Genre
@@ -9,25 +10,54 @@ from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import JsonResponse
 from django.db.models import FilteredRelation, Q
+
 import requests
 import random
 
 # main page - 영화 전체 목록
+# def home(request):
+#     movies = Movie.objects.order_by('-release_date')[:8]
+#     movies1 = movies[:4]
+#     movies2 = movies[4:]
+#     if request.user.is_authenticated:
+#         try:
+#             profile = UserProfile.objects.get(user=request.user)
+#             recommand_movies = list(Movie.objects.filter(genres__in=profile.favorites))
+            
+#         except UserProfile.DoesNotExist:
+#             profile = None
+#             recommand_movies = list(Movie.objects.all())
+#         recommand_movies = random.sample(recommand_movies, 10)
+#         context = {
+#                 'recommand_movies': recommand_movies,
+#                 'movies1': movies1,
+#                 'movies2': movies2,
+#             }
+#         return render(request, 'movies/home.html', context)
+#     context = {
+#             'movies1': movies1,
+#             'movies2': movies2,
+#         }
+#     return render(request, 'movies/home.html', context)
+    
+User = get_user_model()
+
 def home(request):
     movies = Movie.objects.order_by('-release_date')[:8]
     movies1 = movies[:4]
     movies2 = movies[4:]
     if request.user.is_authenticated:
         try:
-            profile = UserProfile.objects.get(user=request.user)
-            recommand_movies = list(Movie.objects.filter(genres__in=profile.favorites))
-            
+            user = get_object_or_404(User, id=request.user.id)
+            recommend_movies = list(Movie.objects.filter(genres__name__icontains=user.favorite))
+            if len(recommend_movies) < 10:
+                recommend_movies += random.sample(list(Movie.objects.all()), 10-len(recommend_movies))
         except UserProfile.DoesNotExist:
             profile = None
-            recommand_movies = list(Movie.objects.all())
-        recommand_movies = random.sample(recommand_movies, 10)
+            recommend_movies = list(Movie.objects.all())
+        recommend_movies = random.sample(recommend_movies, 10)
         context = {
-                'recommand_movies': recommand_movies,
+                'recommend_movies': recommend_movies,
                 'movies1': movies1,
                 'movies2': movies2,
             }
@@ -37,7 +67,6 @@ def home(request):
             'movies2': movies2,
         }
     return render(request, 'movies/home.html', context)
-    
 
 # 전체 영화들 보기
 def movie_list(request):

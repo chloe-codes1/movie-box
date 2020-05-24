@@ -5,12 +5,42 @@ import random
 import hashlib
 # Create your models here.
 
-class User(AbstractUser):
+# class User(AbstractUser):
     
+#     @property
+#     def gravatar_url(self):
+#         return f"https://s.gravatar.com/avatar/{hashlib.md5(self.email.encode('utf-8').strip().lower()).hexdigest()}?s=50&d=mp"
+
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     favorites = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
+
+
+class User(AbstractUser):
+    GENRE_CHOICE = [
+        ('Adventure', 'Adventure'),
+        ('Fantasy', 'Fantasy'),
+          ('Animation', 'Animation'),
+          ('Drama', 'Drama'),
+          ('Horror', 'Horror'),
+          ('Action', 'Action'),
+          ('Comedy', 'Comedy'),
+          ('History', 'History'),
+          ('Western', 'Western'),
+          ('Thriller', 'Thriller'),
+          ('Crime', 'Crime'),
+          ('Documentary', 'Documentary'),
+          ('Science Fiction', 'Science Fiction'),
+          ('Mystery', 'Mystery'),
+          ('Music', 'Music'),
+          ('Romance', 'Romance'),
+          ('Family', 'Family'),
+          ('War', 'War'),
+          ('TV Movie', 'TV Movie'),
+        ]
+    favorite = models.CharField(max_length=20, choices=GENRE_CHOICE)
     @property
     def gravatar_url(self):
         return f"https://s.gravatar.com/avatar/{hashlib.md5(self.email.encode('utf-8').strip().lower()).hexdigest()}?s=50&d=mp"
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorites = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
