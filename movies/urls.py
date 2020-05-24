@@ -9,4 +9,6 @@ urlpatterns = [
     path('sort/', views.sort, name='sort'),
     path('genre/', views.genre, name='genre'),
     path('<int:movie_pk>/', views.movie_detail, name='movie_detail'),
+    path('<int:movie_pk>/comments/', views.comment_create, name='comment_create'),
+    path('<int:movie_pk>/comments/delete/', views.comment_delete, name='comment_delete'),
 ]

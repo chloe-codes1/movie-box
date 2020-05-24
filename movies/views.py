@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
 from django.db.models import Count, Prefetch
-from .models import Movie, Genre
+from .models import Movie, Genre, Comment
+from .forms import CommentForm
 from accounts.models import UserProfile
 from django.core.paginator import Paginator
 from django.conf import settings
@@ -133,9 +134,10 @@ def like(request, movie_pk):
 # 영화별 상세보기 - 해당 영화 리뷰출력
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, id=movie_pk)
-    
+    form = CommentForm()
     context = {
         'movie': movie,
+        'form':form,
     }
     return render(request, 'movies/movie_detail.html', context)
 
@@ -162,3 +164,28 @@ def search(request):
         'option': option.lower(),
     }
     return render(request, 'movies/movie_list.html', context)
+
+
+# 댓글 작성 - 각 리뷰에 대한 댓글 입력
+@login_required
+@require_POST
+def comment_create(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.movie = movie
+        comment.user = request.user
+        comment.save()
+    return redirect('movies:movie_detail', movie.pk)
+
+
+# 댓글 삭제 - 댓글 작성자일떄만 삭제
+@login_required
+@require_POST
+def comment_delete(request, movie_pk):
+    comment_pk = request.POST.get('comment_id')
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.user == comment.user:
+        comment.delete()
+    return redirect('movies:movie_detail', movie_pk)

@@ -41,6 +41,6 @@ class User(AbstractUser):
     favorite = models.CharField(max_length=20, choices=GENRE_CHOICE)
     @property
     def gravatar_url(self):
-        return f"https://s.gravatar.com/avatar/{hashlib.md5(self.email.encode('utf-8').strip().lower()).hexdigest()}?s=50&d=mp"
+        return f"https://s.gravatar.com/avatar/{hashlib.md5(self.email.encode('utf-8').strip().lower()).hexdigest()}?s=170&d=mp"
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

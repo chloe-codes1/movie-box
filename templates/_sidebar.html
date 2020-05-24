@@ -1,6 +1,6 @@
 <ul class="nav flex-column position-fixed" style="width:100px; height:100%; font-family:'FV Almelo', Arial, sans-serif; font-size: large; z-index: 3">
   <li class="nav-item dropright">
-    <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" style="font-size:36px"></i></a>
+    <a class="nav-link active dropdown-toggle shadow-none" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" style="font-size:36px"></i></a>
     <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
     <form class="form-inline px-2" action="{% url 'search' %}" >
         <div class="form-group">
@@ -11,28 +11,32 @@
           <option>Content</option>
         </select>
         </div>
-      <input placeholder=" Search movies here!" name="keyword"type="search">
+      <input placeholder=" Search movies here!" name="keyword"type="search"/>
+      <button class="btn btn-secondary mt-1">Search!</button>
     </form>
   </div>
   </li>
   <li class="nav-item dropright">
-    <a class="nav-link drop-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Order by</a>
-     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <form action="{% url 'movies:sort'%}">
-        <select class="form-control ml-2 my-2" id="sort-option" name="option">
+    <a class="nav-link drop-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Order by</a>
+     <div class="dropdown-menu px-2 m-0" aria-labelledby="dropdownMenuButton">
+        <form class="text-center px-2" action="{% url 'movies:sort'%}" >
+        <div class="form-group">
+        <select class="form-control my-2" id="sort-option" name="option">
           <option>Top rating</option>
           <option>Latest</option>
           <option>Oldest</option>
         </select>
+        </div>
         <button class="btn btn-secondary">Sort!</button>
       </form>
     </div>
   </li>
   <li class="nav-item dropright">
-    <a class="nav-link drop-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Genres</a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <form action="{% url 'movies:genre'%}" method="GET">
-        <select class="form-control ml-2 my-2" id="sort-option" name="option">
+    <a class="nav-link drop-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Genres</a>
+    <div class="dropdown-menu px-2 m-0" aria-labelledby="dropdownMenuButton">
+        <form class="text-center px-2" action="{% url 'movies:genre'%}" method="GET">
+        <div class="form-group">
+        <select class="form-control my-2" id="sort-option" name="option">
           <option>Adventure</option>
           <option>Fantasy</option>
           <option>Animation</option>
@@ -53,6 +57,7 @@
           <option>War</option>
           <option>TV Movie</option>
         </select>
+        </div>
         <button class="btn btn-secondary">Sort!</button>
       </form>
     </div>

@@ -27,7 +27,7 @@ class CustomUserCreationForm(UserCreationForm):
         ]
     favorite = forms.ChoiceField(
         label="Favorite Movie Genre",
-        help_text="Choose your favorite genre. We'll recommend movies based on your favorite genre",
+        help_text="Choose your favorite genre. We'll recommend movies based on your choice.",
         choices=GENRE_CHOICE
     )
     class Meta(UserCreationForm.Meta):
@@ -37,6 +37,7 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ['username','first_name','last_name','email', 'favorite']
+        
 class UserProfileForm(forms.ModelForm):   
     class Meta:
         model = UserProfile
