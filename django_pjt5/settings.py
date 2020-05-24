@@ -176,7 +176,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-LOGIN_REDIRECT_URL ='/movies/'
+LOGIN_REDIRECT_URL ='/'
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
