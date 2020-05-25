@@ -1,6 +1,6 @@
 # Movie box
 
-> :movie_camera: A movie recommendation just for you
+> :movie_camera: Movie recommendations just for you
 
 <br>
 
