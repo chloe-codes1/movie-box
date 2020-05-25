@@ -36,15 +36,6 @@
     {% include '_accountdelete.html'%}
 {% else %}
 
-        <a href="{% url 'follow' person.username %}" class="d-block w-50 m-auto btn btn-warning text-white">
-            <strong>
-            {% if request.user in person.followers.all %}
-                Following
-            {% else %}
-                Follow
-            {% endif %}
-            </strong>
-        </a>
 
 {% endif %}
 </p>
