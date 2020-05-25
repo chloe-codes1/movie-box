@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
-
+{% block title%}
+    | {{person.username}}
+{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
