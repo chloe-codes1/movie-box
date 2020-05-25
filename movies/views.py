@@ -51,12 +51,12 @@ def home(request):
         try:
             user = get_object_or_404(User, id=request.user.id)
             recommend_movies = list(Movie.objects.filter(genres__name__icontains=user.favorite))
-            if len(recommend_movies) < 10:
-                recommend_movies += random.sample(list(Movie.objects.all()), 10-len(recommend_movies))
+            if len(recommend_movies) < 12:
+                recommend_movies += random.sample(list(Movie.objects.all()), 12-len(recommend_movies))
         except UserProfile.DoesNotExist:
             profile = None
             recommend_movies = list(Movie.objects.all())
-        recommend_movies = random.sample(recommend_movies, 10)
+        recommend_movies = random.sample(recommend_movies, 12)
         context = {
                 'recommend_movies': recommend_movies,
                 'movies1': movies1,
